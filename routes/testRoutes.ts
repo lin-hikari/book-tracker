@@ -9,4 +9,8 @@ router.get('/test', (ctx) => {
 
 router.get('/api-test', controller.apiTest);
 
+router.post('/create-user', controller.createUser);
+
+router.get('/view-users', controller.viewUsers);
+
 export default router;
