@@ -20,3 +20,10 @@ export let createUser = async (ctx) => {
 export let viewUsers = async (ctx) => {
   ctx.response.body = { users: users };
 };
+
+export let findUser = async (ctx) => {
+  const nameSearch = await ctx.params.username;
+  const foundUser = users.find((user) => user.name === nameSearch);
+  if(foundUser) ctx.response.body = { user: foundUser };
+  else ctx.response.body = { message: "No user found!" };
+};

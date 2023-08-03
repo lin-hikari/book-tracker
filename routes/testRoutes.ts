@@ -13,4 +13,6 @@ router.post('/create-user', controller.createUser);
 
 router.get('/view-users', controller.viewUsers);
 
+router.get('/find-user/:username', controller.findUser);
+
 export default router;
