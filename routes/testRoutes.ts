@@ -15,4 +15,6 @@ router.get('/view-users', controller.viewUsers);
 
 router.get('/find-user/:username', controller.findUser);
 
+router.post('/add-book', controller.addBook);
+
 export default router;

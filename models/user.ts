@@ -8,8 +8,14 @@ export class User {
   }
 }
 
-interface Book {
+export class Book {
   title: string
   pageTotal: number
   pageCurrent: number
+
+  constructor(title: string, pageTotal: number){
+    this.title = title;
+    this.pageTotal = pageTotal;
+    this.pageCurrent = 0;
+  }
 }
