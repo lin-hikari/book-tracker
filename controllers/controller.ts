@@ -39,7 +39,7 @@ export let findUser = async (ctx) => {
   const username = ctx.params.username;
 
   const foundUser = users.find((user) => user.name === username);
-  if(foundUser) ctx.response.body = { user: foundUser };
+  if (foundUser) ctx.response.body = { user: foundUser };
   else ctx.response.body = { message: "No user found!" };
 };
 
@@ -49,7 +49,7 @@ export let addBook = async (ctx) => {
   const searchTerms: string = reqBody.searchTerms;
 
   const userIndex: number = users.findIndex((user) => user.name === username);
-  if(userIndex === -1) {
+  if (userIndex === -1) {
     ctx.response.body = { message: "No user found!" };
     return;
   }
@@ -59,8 +59,8 @@ export let addBook = async (ctx) => {
   apiQuery += searchTerms;
   apiQuery += "&key=" + Deno.env.get("GOOGLE_API_KEY");
   const apiRes = await fetch(apiQuery);
-  const apiData = await apiRes.json();  
-  if(apiData.totalItems === 0) {
+  const apiData = await apiRes.json();
+  if (apiData.totalItems === 0) {
     ctx.response.body = { message: "No book found!" };
     return;
   }
@@ -70,5 +70,8 @@ export let addBook = async (ctx) => {
   const newBook: Book = new Book(bookTitle, bookPages);
 
   users[userIndex].books.push(newBook);
-  ctx.response.body = { message: "Book added to user!", user: users[userIndex] };
+  ctx.response.body = {
+    message: "Book added to user!",
+    user: users[userIndex],
+  };
 };
