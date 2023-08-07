@@ -5,11 +5,6 @@ import testRoutes from "./routes/routes.ts";
 
 const app = new Application();
 
-app.use(async (ctx, next) => {
-  console.log("Middleware test");
-  await next();
-});
-
 app.use(testRoutes.routes());
 app.use(testRoutes.allowedMethods());
 
