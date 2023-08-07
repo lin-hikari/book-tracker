@@ -7,10 +7,17 @@ export class Book {
   pageCurrent: number;
   userId: number;
 
-  constructor(title: string, pageTotal: number, userId: number) {
+  constructor(
+    bookId: number,
+    title: string,
+    pageTotal: number,
+    pageCurrent: number,
+    userId: number
+  ) {
+    this.bookId = bookId;
     this.title = title;
     this.pageTotal = pageTotal;
-    this.pageCurrent = 0;
+    this.pageCurrent = pageCurrent;
     this.userId = userId;
   }
 

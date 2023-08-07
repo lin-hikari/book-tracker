@@ -5,7 +5,7 @@ export let createUser = async (ctx) => {
   const reqBody = await ctx.request.body().value;
   const name = reqBody.name;
 
-  let newUser = new User(name);
+  let newUser = new User(null, name);
   await newUser.save();
   ctx.response.body = { message: "User created!", user: newUser };
 };
@@ -43,7 +43,7 @@ export let addBook = async (ctx) => {
 
   const bookTitle = apiData.items[0].volumeInfo.title;
   const bookPages = apiData.items[0].volumeInfo.pageCount;
-  const newBook: Book = new Book(bookTitle, bookPages, userId);
+  const newBook: Book = new Book(null, bookTitle, bookPages, 0, userId);
   await newBook.save();
   ctx.response.body = {
     message: "Book added to user!",

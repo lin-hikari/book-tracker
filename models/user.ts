@@ -1,10 +1,12 @@
 import { dbClient } from "../utility/database.ts";
+import { Book } from "./book.ts";
 
 export class User {
   userId: number;
   name: string;
 
-  constructor(name: string) {
+  constructor(userId: number, name: string) {
+    this.userId = userId;
     this.name = name;
   }
 
@@ -18,6 +20,6 @@ export class User {
       [name]
     );
     if (userQuery.length === 0) return undefined;
-    else return userQuery[0];
+  }
   }
 }
