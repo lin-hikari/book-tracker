@@ -5,8 +5,6 @@ const router: Router = new Router();
 
 router.post("/create-user", controller.createUser);
 
-// router.get("/view-users", controller.viewUsers);
-
 router.get("/find-user/:username", controller.findUser);
 
 router.post("/add-book", controller.addBook);

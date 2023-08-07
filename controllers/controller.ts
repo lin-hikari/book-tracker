@@ -1,6 +1,5 @@
-import { User } from "../models/user.ts"; //to be removed
-
-const users: User[] = []; //to be removed
+import { User } from "../models/user.ts";
+import { Book } from "../models/book.ts";
 
 export let createUser = async (ctx) => {
   const reqBody = await ctx.request.body().value;
@@ -10,10 +9,6 @@ export let createUser = async (ctx) => {
   await newUser.save();
   ctx.response.body = { message: "User created!", user: newUser };
 };
-
-// export let viewUsers = async (ctx) => {
-//   ctx.response.body = { users: users };
-// };
 
 export let findUser = async (ctx) => {
   const username = ctx.params.username;
@@ -28,11 +23,12 @@ export let addBook = async (ctx) => {
   const username: string = reqBody.username;
   const searchTerms: string = reqBody.searchTerms;
 
-  const userIndex: number = users.findIndex((user) => user.name === username);
-  if (userIndex === -1) {
+  const foundUser: User = await User.findUser(username);
+  if (!foundUser) {
     ctx.response.body = { message: "No user found!" };
     return;
   }
+  const userId: number = foundUser.user_id;
 
   let apiQuery: string = "";
   apiQuery += "https://www.googleapis.com/books/v1/volumes?q=";
@@ -47,11 +43,10 @@ export let addBook = async (ctx) => {
 
   const bookTitle = apiData.items[0].volumeInfo.title;
   const bookPages = apiData.items[0].volumeInfo.pageCount;
-  const newBook: Book = new Book(bookTitle, bookPages);
-
-  users[userIndex].books.push(newBook);
+  const newBook: Book = new Book(bookTitle, bookPages, userId);
+  await newBook.save();
   ctx.response.body = {
     message: "Book added to user!",
-    user: users[userIndex],
+    book: newBook,
   };
 };
