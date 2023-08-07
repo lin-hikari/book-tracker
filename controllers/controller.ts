@@ -33,7 +33,7 @@ export let addBook = async (ctx) => {
     ctx.response.body = { message: "No user found!" };
     return;
   }
-  const userId: number = foundUser.user_id;
+  const userId: number = foundUser.userId;
 
   let apiQuery: string = "";
   apiQuery += "https://www.googleapis.com/books/v1/volumes?q=";
