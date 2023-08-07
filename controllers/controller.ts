@@ -1,34 +1,14 @@
-import { User, Book } from "../models/user.ts";
-import { Client } from "https://deno.land/x/mysql@v2.11.0/mod.ts";
+import { User } from "../models/user.ts"; //to be removed
 
-const client = await new Client().connect({
-  hostname: "localhost",
-  username: "root",
-  db: "book-tracker",
-  poolSize: 3, // connection limit
-  password: Deno.env.get("MYSQL_PASSWORD"),
-});
-
-const users: User[] = [];
-
-// export let createUser = async (ctx) => {
-//   const reqBody = await ctx.request.body().value;
-//   const name = reqBody.name
-
-//   let newUser = new User(name);
-//   users.push(newUser);
-//   ctx.response.body = { message: "User created!", user: newUser };
-// };
+const users: User[] = []; //to be removed
 
 export let createUser = async (ctx) => {
   const reqBody = await ctx.request.body().value;
   const name = reqBody.name;
 
-  let result = await client.execute(`INSERT INTO users(name) values(?)`, [
-    name,
-  ]);
-  console.log(result);
-  ctx.response.body = { message: "User created!", user: name };
+  let newUser = new User(name);
+  await newUser.save();
+  ctx.response.body = { message: "User created!", user: newUser };
 };
 
 export let viewUsers = async (ctx) => {
