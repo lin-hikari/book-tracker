@@ -1,7 +1,7 @@
 import { dbClient } from "../utility/database.ts";
 
 export class User {
-  user_id: number;
+  userId: number;
   name: string;
 
   constructor(name: string) {
