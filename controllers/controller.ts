@@ -14,8 +14,13 @@ export let findUser = async (ctx) => {
   const username = ctx.params.username;
 
   const foundUser: User = await User.findUser(username);
-  if (foundUser) ctx.response.body = { user: foundUser };
-  else ctx.response.body = { message: "No user found!" };
+  if (!foundUser) {
+    ctx.response.body = { message: "No user found!" };
+    return;
+  }
+  //console.log(foundUser);
+  const userBooks = await foundUser.getBooks();
+  ctx.response.body = { user: foundUser, books: userBooks };
 };
 
 export let addBook = async (ctx) => {

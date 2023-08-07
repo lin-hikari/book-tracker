@@ -20,6 +20,14 @@ export class User {
       [name]
     );
     if (userQuery.length === 0) return undefined;
+    else return new User(userQuery[0].user_id, userQuery[0].name);
   }
+
+  async getBooks() {
+    const booksQuery = await dbClient.query(
+      "SELECT * FROM books WHERE books.user_id = ?",
+      [this.userId]
+    );
+    return booksQuery;
   }
 }
