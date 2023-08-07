@@ -18,7 +18,6 @@ export let findUser = async (ctx) => {
     ctx.response.body = { message: "No user found!" };
     return;
   }
-  //console.log(foundUser);
   const userBooks = await foundUser.getBooks();
   ctx.response.body = { user: foundUser, books: userBooks };
 };
@@ -35,10 +34,11 @@ export let addBook = async (ctx) => {
   }
   const userId: number = foundUser.userId;
 
-  let apiQuery: string = "";
-  apiQuery += "https://www.googleapis.com/books/v1/volumes?q=";
-  apiQuery += searchTerms;
-  apiQuery += "&key=" + Deno.env.get("GOOGLE_API_KEY");
+  let apiQuery: string =
+    "https://www.googleapis.com/books/v1/volumes?q=" +
+    searchTerms +
+    "&key=" +
+    Deno.env.get("GOOGLE_API_KEY");
   const apiRes = await fetch(apiQuery);
   const apiData = await apiRes.json();
   if (apiData.totalItems === 0) {
