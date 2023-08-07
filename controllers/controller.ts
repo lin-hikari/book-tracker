@@ -11,14 +11,14 @@ export let createUser = async (ctx) => {
   ctx.response.body = { message: "User created!", user: newUser };
 };
 
-export let viewUsers = async (ctx) => {
-  ctx.response.body = { users: users };
-};
+// export let viewUsers = async (ctx) => {
+//   ctx.response.body = { users: users };
+// };
 
 export let findUser = async (ctx) => {
   const username = ctx.params.username;
 
-  const foundUser = users.find((user) => user.name === username);
+  const foundUser: User = await User.findUser(username);
   if (foundUser) ctx.response.body = { user: foundUser };
   else ctx.response.body = { message: "No user found!" };
 };
